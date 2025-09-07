@@ -1,15 +1,13 @@
-version: "3.9"
-
 services:
   db:
     image: mariadb:10.11
     container_name: dcim-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: change_me_root
+      MYSQL_ROOT_PASSWORD: dcim_root_2024
       MYSQL_DATABASE: dcim
       MYSQL_USER: dcim
-      MYSQL_PASSWORD: dcim
+      MYSQL_PASSWORD: dcim_pass_2024
     volumes:
       - dcim-db:/var/lib/mysql
     healthcheck:
@@ -27,20 +25,9 @@ services:
     depends_on:
       - db
     restart: unless-stopped
-    environment:
-      # para php.ini rápidos (opcional)
-      PHP_MEMORY_LIMIT: 512M
-      PHP_UPLOAD_MAX_FILESIZE: 50M
-      PHP_POST_MAX_SIZE: 50M
-      # variables útiles dentro del contenedor
-      DCIM_DB_HOST: db
-      DCIM_DB_NAME: dcim
-      DCIM_DB_USER: dcim
-      DCIM_DB_PASS: dcim
     ports:
       - "8080:80"
     volumes:
-      # persistir uploads, planos, y configuración
       - dcim-html:/var/www/html
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://localhost/install.php || true"]
@@ -48,7 +35,6 @@ services:
       timeout: 5s
       retries: 10
 
-  # Opcional: phpMyAdmin para ver la base de datos
   phpmyadmin:
     image: phpmyadmin:5-apache
     container_name: dcim-pma
@@ -58,11 +44,10 @@ services:
     environment:
       PMA_HOST: db
       PMA_USER: root
-      PMA_PASSWORD: change_me_root
+      PMA_PASSWORD: dcim_root_2024
     ports:
       - "8081:80"
 
 volumes:
   dcim-db:
   dcim-html:
-
