@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  db:
+    image: mariadb:10.11
+    container_name: dcim-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: change_me_root
+      MYSQL_DATABASE: dcim
+      MYSQL_USER: dcim
+      MYSQL_PASSWORD: dcim
+    volumes:
+      - dcim-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  opendcim:
+    build:
+      context: ./opendcim
+      args:
+        OPENDCIM_VERSION: "23.04"
+    container_name: dcim-web
+    depends_on:
+      - db
+    restart: unless-stopped
+    environment:
+      # para php.ini rápidos (opcional)
+      PHP_MEMORY_LIMIT: 512M
+      PHP_UPLOAD_MAX_FILESIZE: 50M
+      PHP_POST_MAX_SIZE: 50M
+      # variables útiles dentro del contenedor
+      DCIM_DB_HOST: db
+      DCIM_DB_NAME: dcim
+      DCIM_DB_USER: dcim
+      DCIM_DB_PASS: dcim
+    ports:
+      - "8080:80"
+    volumes:
+      # persistir uploads, planos, y configuración
+      - dcim-html:/var/www/html
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/install.php || true"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+
+  # Opcional: phpMyAdmin para ver la base de datos
+  phpmyadmin:
+    image: phpmyadmin:5-apache
+    container_name: dcim-pma
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: change_me_root
+    ports:
+      - "8081:80"
+
+volumes:
+  dcim-db:
+  dcim-html:
+
