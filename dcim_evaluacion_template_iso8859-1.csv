@@ -1,0 +1,4 @@
+Criterio,Por qué importa para IA/Analítica,Cómo validarlo en la demo/prueba,Peso (1-5),Sunbird (0-5),Schneider (0-5),Notas Sunbird,Notas Schneider
+Integración con clusters IA (GPU/TPU),"Capacidad de integrar métricas de GPUs (utilización, memoria, potencia, temperatura) vía DCGM/NVML, Redfish, Prometheus, o APIs.","Ver si existe conector nativo o, al menos, API/Webhooks para ingerir/exportar métricas. Probar DCGM Exporter + Prometheus y verificar ingestión cruzada.",5,,,,
+Telemetría de potencia y térmica (rack/PDUs/servidores),"Granularidad y precisión de potencia (kW, A, 3 fases), temperatura, humedad; soportes SNMP/Modbus/BACnet/Redfish.",Revisar lista de dispositivos soportados. Cargar dispositivos de ejemplo y comprobar lecturas en tiempo real e históricos.,5,,,,
+Predicción/anomalías con IA/ML,"Detección proactiva de fallos/alarma-storms, insights accionables, mantenimiento predictivo.","Ver si ofrece analítica/ML out
