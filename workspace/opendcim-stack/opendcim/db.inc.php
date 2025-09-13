@@ -51,7 +51,7 @@
 			define('AUTHENTICATION', getenv('OPENDCIM_AUTH'));
 		}
 
-		@define( "AUTHENTICATION", "Apache" );
+		@define( "AUTHENTICATION", "Native" );
 
 	/* If you want to use OIDC authentication, comment the above defines for AUTHENTICATION,
 	   uncomment the OIDC define below
