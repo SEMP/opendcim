@@ -2,12 +2,22 @@ FROM php:8.2-apache
 
 ARG OPENDCIM_VERSION=23.04
 
-# Install system dependencies
+# Install system dependencies and locales
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
     libzip-dev libonig-dev libldap2-dev \
     libsnmp-dev snmp graphviz curl unzip ca-certificates \
+    locales \
     && rm -rf /var/lib/apt/lists/*
+
+# Generate common locales for OpenDCIM internationalization
+RUN sed -i '/^#.* en_US.UTF-8 /s/^#//' /etc/locale.gen \
+    && sed -i '/^#.* es_ES.UTF-8 /s/^#//' /etc/locale.gen \
+    && sed -i '/^#.* fr_FR.UTF-8 /s/^#//' /etc/locale.gen \
+    && sed -i '/^#.* de_DE.UTF-8 /s/^#//' /etc/locale.gen \
+    && sed -i '/^#.* it_IT.UTF-8 /s/^#//' /etc/locale.gen \
+    && sed -i '/^#.* pt_BR.UTF-8 /s/^#//' /etc/locale.gen \
+    && locale-gen
 
 # Install PHP extensions required by OpenDCIM
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
