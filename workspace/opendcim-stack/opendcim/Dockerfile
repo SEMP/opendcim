@@ -54,6 +54,12 @@ COPY db.inc.php /var/www/html/db.inc.php
 RUN chown www-data:www-data /var/www/html/db.inc.php \
     && chmod 644 /var/www/html/db.inc.php
 
+# Apply PHP 8.2 compatibility fixes
+COPY apply-php82-fix.sh /tmp/apply-php82-fix.sh
+RUN chmod +x /tmp/apply-php82-fix.sh \
+    && /tmp/apply-php82-fix.sh \
+    && rm /tmp/apply-php82-fix.sh
+
 EXPOSE 80
 
 CMD ["apache2-foreground"]

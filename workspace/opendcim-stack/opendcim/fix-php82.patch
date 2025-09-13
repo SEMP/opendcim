@@ -1,0 +1,22 @@
+--- a/index.php
++++ b/index.php
+@@ -25,13 +25,13 @@
+ 	$row = $stmt->fetch();
+ 	$stmt->closeCursor();
+ 	
+-	$StatsDevices=number_format($row['Devices']);
+-	$StatsServers=number_format($row['Servers']);
+-	$StatsSize=number_format($row['Size']);
+-	$StatsVM=number_format($row['VMcount']);
+-	$StatsHost=number_format($row["VMhosts"]);
+-	$StatsCabinet=number_format($row["CabinetCount"]);
+-	$StatsPower=number_format($row['Power'] / 1000);
++	$StatsDevices=number_format($row['Devices'] ?? 0);
++	$StatsServers=number_format($row['Servers'] ?? 0);
++	$StatsSize=number_format($row['Size'] ?? 0);
++	$StatsVM=number_format($row['VMcount'] ?? 0);
++	$StatsHost=number_format($row["VMhosts"] ?? 0);
++	$StatsCabinet=number_format($row["CabinetCount"] ?? 0);
++	$StatsPower=number_format(($row['Power'] ?? 0) / 1000);
+ 	$StatsHeat=number_format($StatsPower * 3.412);
+ 	$StatsVMRatio="$StatsVM:$StatsHost";
