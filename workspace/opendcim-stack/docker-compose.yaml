@@ -29,6 +29,12 @@ services:
       dcim-db:
         condition: service_healthy
     restart: unless-stopped
+    environment:
+      OPENDCIM_DB_HOST: dcim-db
+      OPENDCIM_DB_NAME: ${MYSQL_DATABASE}
+      OPENDCIM_DB_USER: ${MYSQL_USER}
+      OPENDCIM_DB_PASS: ${MYSQL_PASSWORD}
+      OPENDCIM_DEVMODE: "TRUE"
     ports:
       - "${OPENDCIM_PORT}:80"
     volumes:

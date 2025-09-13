@@ -49,6 +49,11 @@ RUN mkdir -p /var/www/html/pictures /var/www/html/drawings /var/www/html/templat
     && chown -R www-data:www-data /var/www/html/pictures /var/www/html/drawings /var/www/html/templates \
     && chmod -R 775 /var/www/html/pictures /var/www/html/drawings /var/www/html/templates
 
+# Copy database configuration
+COPY db.inc.php /var/www/html/db.inc.php
+RUN chown www-data:www-data /var/www/html/db.inc.php \
+    && chmod 644 /var/www/html/db.inc.php
+
 EXPOSE 80
 
 CMD ["apache2-foreground"]
