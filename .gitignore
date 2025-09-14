@@ -9,6 +9,10 @@
 volumes/
 data/
 
+# Academic task files (personal notes)
+tarea.txt
+Exercise 1.pdf
+
 # IDE and editor files
 .vscode/
 .idea/
