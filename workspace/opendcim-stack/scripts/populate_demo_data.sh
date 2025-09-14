@@ -34,7 +34,7 @@ sleep 5
 
 # Execute the SQL script
 echo "📊 Populating OpenDCIM with AI Data Center demo data..."
-docker compose exec -T dcim-db mysql -u dcim -pdcim_user_secure_2024 dcim < final_demo_data.sql
+docker compose exec -T dcim-db mysql -u dcim -pdcim_user_secure_2024 dcim < scripts/final_demo_data.sql
 
 if [ $? -eq 0 ]; then
     echo "✅ Demo data population completed successfully!"
