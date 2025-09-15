@@ -140,6 +140,30 @@ El análisis incluye criterios específicos para infraestructuras que soportan c
     \item \textbf{Monitoreo de Cooling Inteligente}\\
     Capacidades para gestionar sistemas de refrigeración líquida directa al chip (DLC) e inmersión para densidades de 20-150 kW/rack, incluyendo integración con CDU/XDU y torres de enfriamiento.\\
     \textit{Relevancia para Exercise 1}: Vital para gestionar los sistemas de cooling líquido estimados en \$15-40M por centro.
+
+    \item \textbf{Análisis de Capacidad y Planificación}\\
+    Herramientas para modelado de capacidad, planificación de crecimiento y optimización de utilización de recursos para cargas de trabajo de IA.\\
+    \textit{Relevancia}: Crítico para ROI y planificación estratégica de inversiones en infraestructura.
+
+    \item \textbf{Integración con Orquestadores (Kubernetes, Slurm)}\\
+    Capacidad para integrarse con sistemas de orquestación de contenedores y gestión de trabajos HPC utilizados en entornos de IA.\\
+    \textit{Relevancia}: Esencial para operaciones automatizadas y gestión eficiente de recursos.
+
+    \item \textbf{Alertas y Notificaciones Inteligentes}\\
+    Sistema de alertas contextual que comprende patrones de carga de trabajo de IA y genera notificaciones relevantes sin saturar a los operadores.\\
+    \textit{Relevancia}: Crucial para mantener operaciones 24/7 con equipos de tamaño limitado.
+
+    \item \textbf{Reporting y Compliance para IA}\\
+    Capacidades de generación de reportes específicos para auditorías de IA, incluyendo métricas de sostenibilidad, utilización de recursos y rendimiento de modelos.\\
+    \textit{Relevancia}: Necesario para cumplimiento regulatorio y transparencia operacional.
+
+    \item \textbf{Costo Total de Propiedad (TCO)}\\
+    Análisis integral de costos incluyendo licenciamiento, implementación, mantenimiento y recursos humanos requeridos.\\
+    \textit{Relevancia}: Fundamental para decisiones de inversión y presupuestación.
+
+    \item \textbf{Facilidad de Implementación y Uso}\\
+    Evaluación de la curva de aprendizaje, complejidad de instalación y usabilidad de interfaces.\\
+    \textit{Relevancia}: Impacta directamente en el tiempo de implementación y adopción por parte del equipo.
 \end{enumerate}
 
 \section{Análisis Comparativo Detallado}
@@ -200,6 +224,49 @@ Facilidad de Uso & 3\% & Interface funcional pero básica & Interface moderna, U
 \end{itemize}
 
 \textbf{Nota}: Las puntuaciones han sido refinadas considerando los requisitos específicos del diseño de Exercise 1, penalizando soluciones que no escalen adecuadamente para infraestructuras de 5 centros distribuidos con cargas GPU masivas.
+
+\subsection{Análisis Detallado por Criterio}
+
+\subsubsection{Fortalezas de OpenDCIM 23.04}
+
+\begin{enumerate}
+    \item \textbf{Costo}: Software libre sin licenciamiento, total control sobre la implementación
+    \item \textbf{Transparencia}: Código abierto permite auditoría completa y customizaciones ilimitadas
+    \item \textbf{Flexibilidad}: Arquitectura modificable para requisitos específicos
+    \item \textbf{Comunidad}: Soporte comunitario y desarrollo colaborativo
+    \item \textbf{Implementación}: Exitosamente desplegado y funcional en ambiente containerizado
+    \item \textbf{Demo funcional}: Población exitosa con datos realistas de infraestructura IA
+\end{enumerate}
+
+\subsubsection{Limitaciones Críticas de OpenDCIM 23.04 para Exercise 1}
+
+\begin{enumerate}
+    \item \textbf{Escalabilidad multi-sitio}: Arquitectura monolítica inadecuada para gestionar 5 centros distribuidos
+    \item \textbf{Capacidades de IA}: Ausencia de funcionalidades predictivas para optimización energética
+    \item \textbf{Gestión de cooling avanzado}: Sin soporte nativo para sistemas DLC/inmersión
+    \item \textbf{Coordinación global}: Limitaciones para sincronización entre centros para entrenamientos distribuidos
+    \item \textbf{Integración GPU}: Requiere desarrollo significativo para monitoreo especializado de clusters masivos
+\end{enumerate}
+
+\subsubsection{Fortalezas de EcoStruxure IT}
+
+\begin{enumerate}
+    \item \textbf{Arquitectura cloud-native}: Diseñada para gestión distribuida global
+    \item \textbf{IA Integrada}: Capacidades predictivas nativas y análisis basado en machine learning
+    \item \textbf{Escalabilidad}: Soporte para infraestructuras de escala OpenAI/Microsoft
+    \item \textbf{Integración}: APIs robustas y conectores preconfigurados para ecosistemas IA
+    \item \textbf{Compliance}: Reporting automatizado para regulaciones internacionales
+    \item \textbf{Soporte}: Soporte profesional 24/7 y actualizaciones automáticas
+\end{enumerate}
+
+\subsubsection{Limitaciones de EcoStruxure IT}
+
+\begin{enumerate}
+    \item \textbf{Costo}: Modelo de licenciamiento por suscripción con costos recurrentes
+    \item \textbf{Dependencia}: Dependencia del proveedor para actualizaciones y soporte
+    \item \textbf{Customización}: Limitaciones en customizaciones profundas comparado con soluciones open source
+    \item \textbf{Vendor Lock-in}: Riesgo de dependencia tecnológica del ecosistema Schneider Electric
+\end{enumerate}
 
 \section{Fortalezas y Limitaciones}
 
@@ -272,6 +339,122 @@ Para la infraestructura de Exercise 1 con 5 centros de datos distribuidos global
 \end{itemize}
 
 \textbf{Limitaciones críticas para Exercise 1}: OpenDCIM no es viable para la escala y complejidad del diseño propuesto debido a limitaciones de escalabilidad multi-sitio y ausencia de capacidades predictivas para optimización energética.
+
+\section{Herramientas Complementarias Recomendadas}
+
+\subsection{Stack de Herramientas para Centros de Datos de IA}
+
+\subsubsection{Dashboards de Eficiencia Energética}
+\begin{itemize}
+    \item \textbf{Meta's Open Compute Project (OCP) Telemetry}: Framework open source para métricas de eficiencia
+    \item \textbf{Grafana + InfluxDB}: Dashboards personalizables para PUE/WUE en tiempo real
+    \item \textbf{Prometheus + Alert Manager}: Monitoreo y alertas de consumo energético
+\end{itemize}
+
+\subsubsection{Sistemas de Gestión de Datos Masivos}
+\begin{itemize}
+    \item \textbf{Apache Hadoop Ecosystem}:
+    \begin{itemize}
+        \item HDFS para almacenamiento distribuido de datasets de entrenamiento
+        \item Apache Spark para procesamiento de datos a gran escala
+        \item Apache Kafka para streaming de datos en tiempo real
+    \end{itemize}
+    \item \textbf{MinIO}: Almacenamiento de objetos compatible con S3 para datasets ML
+    \item \textbf{Alluxio}: Capa de virtualización de datos para acelerar acceso a datasets
+\end{itemize}
+
+\subsubsection{Orquestación de Cargas de Trabajo IA}
+\begin{itemize}
+    \item \textbf{Kubernetes + Kubeflow}:
+    \begin{itemize}
+        \item Kubeflow Pipelines para workflows de ML
+        \item Kubeflow Training Operator para entrenamientos distribuidos
+        \item Katib para optimización de hiperparámetros
+    \end{itemize}
+    \item \textbf{Slurm}: Gestor de trabajos HPC para clusters GPU de alto rendimiento
+    \item \textbf{Ray}: Framework distribuido para ML y cargas de trabajo paralelas
+    \item \textbf{MLflow}: Gestión de ciclo de vida de modelos ML
+\end{itemize}
+
+\subsubsection{Monitoreo Predictivo con IA (AIOps)}
+\begin{itemize}
+    \item \textbf{Datadog}: Monitoreo APM con capacidades de IA para detección de anomalías
+    \item \textbf{Dynatrace}: Plataforma de observabilidad con IA automática para root cause analysis
+    \item \textbf{Moogsoft}: AIOps para correlación inteligente de eventos e incidents
+    \item \textbf{Elastic Observability}: Stack ELK con machine learning para detección de anomalías
+\end{itemize}
+
+\subsubsection{Sistemas de Cooling Inteligente}
+\begin{itemize}
+    \item \textbf{DeepMind AI for Cooling}: Tecnología de Google para optimización de refrigeración
+    \item \textbf{Schneider EcoStruxure Building Advisor}: Optimización de sistemas HVAC basada en IA
+    \item \textbf{Johnson Controls OpenBlue}: Plataforma IoT para gestión inteligente de edificios
+    \item \textbf{Honeywell Forge}: Soluciones de gemelo digital para optimización de cooling
+\end{itemize}
+
+\subsubsection{Seguridad y Compliance para IA}
+\begin{itemize}
+    \item \textbf{HashiCorp Vault}: Gestión de secretos y certificados para infraestructura de IA
+    \item \textbf{Falco}: Detección de comportamientos anómalos en runtime de Kubernetes
+    \item \textbf{OPA (Open Policy Agent)}: Políticas de seguridad como código
+    \item \textbf{Aqua Security}: Seguridad integral para containers y cloud-native
+\end{itemize}
+
+\subsubsection{Observabilidad y Logging}
+\begin{itemize}
+    \item \textbf{OpenTelemetry}: Estándar abierto para observabilidad de aplicaciones ML
+    \item \textbf{Jaeger}: Distributed tracing para microservicios de ML
+    \item \textbf{Fluentd/Fluent Bit}: Agregación y forwarding de logs distribuidos
+    \item \textbf{Loki}: Aggregation de logs optimizado para alta cardinalidad
+\end{itemize}
+
+\subsection{Arquitectura de Referencia Integrada con Exercise 1}
+
+\begin{verbatim}
+┌─────────────────────────────────────────────────────────────┐
+│                  DCIM Layer (EcoStruxure IT)               │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
+│  │ Power Monitoring│  │ Cooling Control │  │ Asset Mgmt   │ │
+│  │ 75-100MW/center │  │ DLC/Immersion   │  │ 2500 racks   │ │
+│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                               │
+┌─────────────────────────────────────────────────────────────┐
+│              Global Orchestration Layer                    │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
+│  │   Kubernetes    │  │      Slurm      │  │     Ray      │ │
+│  │   + Kubeflow    │  │   (HPC Jobs)    │  │ (Distributed)│ │
+│  │ 5 DC Clusters   │  │  GPU Scheduling │  │  Multi-Region│ │
+│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                               │
+┌─────────────────────────────────────────────────────────────┐
+│                Network & Connectivity Layer                │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
+│  │  InfiniBand NDR │  │ Ethernet 800GbE │  │ Submarine    │ │
+│  │    400Gb/s      │  │   Data Plane    │  │   Cables     │ │
+│  │  Training Mesh  │  │    Storage      │  │ Partial Mesh │ │
+│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                               │
+┌─────────────────────────────────────────────────────────────┐
+│                   Data & Storage Layer                     │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
+│  │     Lustre      │  │      Ceph       │  │    MinIO     │ │
+│  │  Parallel FS    │  │ Object Storage  │  │  S3 Compat   │ │
+│  │ TB/s throughput │  │  Erasure Code   │  │ Dataset Lake │ │
+│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                               │
+┌─────────────────────────────────────────────────────────────┐
+│                Compute & AI Infrastructure                 │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
+│  │  NVIDIA DGX     │  │ Dell PowerEdge  │  │ NVIDIA GB200 │ │
+│  │   H100/A100     │  │    XE9680       │  │   NVL72      │ │
+│  │ 1500 racks/DC   │  │ Management Tier │  │ Next-Gen Rack│ │
+│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+\end{verbatim}
 
 \section{Implementación Recomendada}
 
