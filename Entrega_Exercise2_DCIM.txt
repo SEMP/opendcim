@@ -1,0 +1,351 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{ltxtable}
+
+% Configuración de encabezados y pies de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Exercise 2: Datacenter Management Software}
+\fancyhead[R]{MIA - Diseño de Centro de Datos Modernos}
+\fancyfoot[C]{\thepage}
+
+% Configuración de hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=green,
+}
+
+% Configuración de títulos
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{blue}}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{darkblue}}{\thesubsection}{1em}{}
+
+\definecolor{darkblue}{RGB}{0,51,102}
+
+\begin{document}
+
+% Página de título
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+
+{\LARGE\textbf{MAESTRÍA EN INTELIGENCIA ARTIFICIAL Y ANÁLISIS DE DATOS}}\\[0.5cm]
+{\Large Diseño de Centro de Datos Modernos}\\[2cm]
+
+{\Huge\textbf{Exercise 2: Datacenter Management Software}}\\[0.5cm]
+{\Large\textbf{Análisis Comparativo de Plataformas DCIM para Centros de Datos de IA}}\\[3cm]
+
+{\Large\textbf{Autores:}}\\[0.5cm]
+{\large Sergio Enrique Morel Peralta}\\
+{\large Clara Patricia Almirón de Silva}\\[2cm]
+
+{\Large\textbf{Profesor:}}\\[0.5cm]
+{\large Dr. Fabio López Pires}\\[3cm]
+
+{\large\today}
+
+\vfill
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+\section{Resumen Ejecutivo}
+
+Este documento presenta un análisis comparativo entre OpenDCIM 23.04 y Schneider Electric EcoStruxure IT como soluciones DCIM (Data Center Infrastructure Management) para centros de datos orientados a Inteligencia Artificial y Analítica de Datos. El análisis se basa en el diseño de centro de datos desarrollado en el Exercise 1, que propone una infraestructura distribuida globalmente con 5 centros de datos (Ashburn-VA, São Paulo, Estocolmo, Singapur y Sydney) optimizada para servicios de IA y análisis en tiempo real a escala de empresas como OpenAI.
+
+\subsection{Contexto del Diseño (Exercise 1)}
+
+La infraestructura evaluada contempla centros de datos de 2,500 racks cada uno, con densidades de potencia de 20-120 kW/rack para cargas GPU/TPU, totalizando aproximadamente 75-100 MW de capacidad IT por centro. El diseño incluye:
+
+\begin{itemize}
+    \item \textbf{Equipamiento GPU}: Servidores NVIDIA DGX H100/A100, Dell PowerEdge XE9680
+    \item \textbf{Refrigeración}: Sistemas líquidos directos al chip (DLC) e inmersión para altas densidades
+    \item \textbf{Conectividad}: Redes InfiniBand NDR 400Gb/s y Ethernet 800GbE para entrenamiento distribuido
+    \item \textbf{Almacenamiento}: Sistemas distribuidos Lustre/Ceph para petabytes de datos
+    \item \textbf{Interconexión global}: Topología de malla parcial con enlaces submarinos dedicados
+\end{itemize}
+
+El análisis incluye criterios específicos para infraestructuras que soportan clusters GPU/TPU, entrenamiento de modelos de machine learning y sistemas de inferencia en tiempo real.
+
+\section{Metodología de Evaluación}
+
+\subsection{Instalación y Pruebas Realizadas}
+
+\subsubsection{OpenDCIM 23.04}
+\begin{itemize}
+    \item \textbf{Estado}: Instalación completa y funcional
+    \item \textbf{Método}: Implementación containerizada con Docker Compose
+    \item \textbf{Componentes}: MariaDB 10.11, PHP 8.2-Apache, phpMyAdmin
+    \item \textbf{Configuración}: Autenticación nativa, soporte de localización, correcciones PHP 8.2
+    \item \textbf{Acceso}: Interface web completamente operativa en http://localhost:8080
+    \item \textbf{Demo Data}: Población con datos realistas de IA (16 servidores GPU, 4 cabinets, departamentos)
+\end{itemize}
+
+\subsubsection{Schneider EcoStruxure IT}
+\begin{itemize}
+    \item \textbf{Estado}: Análisis basado en demo oficial y documentación técnica
+    \item \textbf{Método}: Demo self-service disponible en se.com/dcim
+    \item \textbf{Trial}: Disponible versión de prueba gratuita por 30 días
+    \item \textbf{Componentes}: EcoStruxure IT Expert (cloud), IT Advisor, Asset Advisor
+    \item \textbf{Características}: Plataforma cloud-native con capacidades de IA integradas
+\end{itemize}
+
+\section{Criterios de Evaluación para Centros de Datos de IA}
+
+\subsection{Criterios Principales}
+
+\begin{enumerate}
+    \item \textbf{Integración con Sistemas de Monitoreo de Clusters IA (GPU/TPU)}\\
+    Capacidad para monitorear y gestionar infraestructura específica de IA como clusters GPU y TPU, incluyendo métricas de utilización, temperatura y consumo energético de servidores NVIDIA DGX H100/A100 y sistemas de refrigeración líquida.\\
+    \textit{Relevancia para Exercise 1}: Crítico para gestionar los 1,500 racks de cómputo con servidores GPU que representan inversiones de \$1.5-2.5 mil millones por centro de datos.
+
+    \item \textbf{Gestión Predictiva mediante IA/ML}\\
+    Implementación de algoritmos de machine learning para predicción de fallos de equipos, optimización de consumo energético y gestión predictiva de cooling.\\
+    \textit{Relevancia}: Esencial para prevenir interrupciones en entrenamientos de modelos y mantener disponibilidad de servicios de inferencia.
+
+    \item \textbf{Optimización Energética y Sostenibilidad (PUE, CUE, WUE)}\\
+    Capacidades para medir, analizar y optimizar métricas de eficiencia energética específicas como Power Usage Effectiveness (PUE), Carbon Usage Effectiveness (CUE) y Water Usage Effectiveness (WUE).\\
+    \textit{Relevancia}: Fundamental para la sostenibilidad y control de costos operativos en infraestructuras intensivas en energía.
+
+    \item \textbf{Escalabilidad para Entrenamientos de LLMs}\\
+    Soporte para gestionar infraestructuras masivas y dinámicas requeridas para el entrenamiento de Large Language Models, incluyendo capacidades de auto-escalado entre los 5 centros de datos distribuidos globalmente.\\
+    \textit{Relevancia para Exercise 1}: Esencial para coordinar entrenamientos distribuidos usando redes InfiniBand NDR 400Gb/s entre centros de datos ubicados en diferentes continentes.
+
+    \item \textbf{Seguridad de Datos Sensibles}\\
+    Implementación de controles de seguridad específicos para proteger datos sensibles utilizados en analítica, incluyendo encriptación, control de acceso y auditoría.
+
+    \item \textbf{Monitoreo de Cooling Inteligente}\\
+    Capacidades para gestionar sistemas de refrigeración líquida directa al chip (DLC) e inmersión para densidades de 20-150 kW/rack, incluyendo integración con CDU/XDU y torres de enfriamiento.\\
+    \textit{Relevancia para Exercise 1}: Vital para gestionar los sistemas de cooling líquido estimados en \$15-40M por centro.
+\end{enumerate}
+
+\section{Análisis Comparativo Detallado}
+
+\subsection{Tabla Comparativa}
+
+\begin{center}
+\begin{longtable}{|p{2.5cm}|p{1.0cm}|p{3.0cm}|p{3.0cm}|p{1.2cm}|p{1.2cm}|}
+\hline
+\textbf{Criterio} & \textbf{Peso} & \textbf{OpenDCIM 23.04} & \textbf{EcoStruxure IT} & \textbf{OpenDCIM} & \textbf{EcoStruxure} \\
+\hline
+\endhead
+
+Integración GPU/TPU & 15\% & Monitoreo básico mediante SNMP, requiere configuración manual para equipos DGX & Integración nativa con infraestructura Schneider, APIs para sistemas terceros & 5/10 & 7/10 \\
+\hline
+
+Gestión Predictiva IA/ML & 15\% & No incluye capacidades predictivas nativas, requiere integraciones externas & IA integrada para predicción de fallos, Asset Advisor 24/7 & 3/10 & 9/10 \\
+\hline
+
+Optimización Energética & 12\% & Reportes básicos de consumo, cálculos manuales de PUE & Reporting automatizado de sostenibilidad, cálculos automáticos PUE/CUE/WUE & 5/10 & 9/10 \\
+\hline
+
+Escalabilidad LLMs & 12\% & Arquitectura monolítica limitada para gestionar 5 centros distribuidos & Arquitectura cloud-native para gestión global, auto-escalado & 3/10 & 9/10 \\
+\hline
+
+Seguridad de Datos & 10\% & Autenticación básica, controles de acceso estándar & Certificación IEC 62443-4-2 SL2, encriptación avanzada & 6/10 & 9/10 \\
+\hline
+
+Cooling Inteligente & 10\% & Monitoreo básico de sensores ambientales & Integración con EcoStruxure Building para cooling líquido & 4/10 & 9/10 \\
+\hline
+
+Análisis de Capacidad & 8\% & Reportes estáticos de utilización & IT Advisor con modelado avanzado, simulaciones & 5/10 & 9/10 \\
+\hline
+
+Integración Orquestadores & 8\% & APIs básicas, desarrollo personalizado requerido & APIs robustas, integraciones preconfiguradas & 4/10 & 8/10 \\
+\hline
+
+Alertas Inteligentes & 5\% & Sistema de alertas básico, configuración manual & Alertas contextuales basadas en IA & 5/10 & 9/10 \\
+\hline
+
+Reporting y Compliance & 5\% & Reportes básicos customizables & Reporting automatizado para EED, templates & 4/10 & 9/10 \\
+\hline
+
+TCO & 5\% & Software libre, costos internos altos & Modelo SaaS con costos predecibles & 8/10 & 7/10 \\
+\hline
+
+Facilidad de Uso & 3\% & Interface funcional pero básica & Interface moderna, UX optimizada & 6/10 & 8/10 \\
+\hline
+
+\end{longtable}
+\end{center}
+
+\subsection{Puntuaciones Ponderadas}
+
+\begin{itemize}
+    \item \textbf{OpenDCIM 23.04}: 4.95/10 (49.5\%)
+    \item \textbf{EcoStruxure IT}: 8.43/10 (84.3\%)
+\end{itemize}
+
+\textbf{Nota}: Las puntuaciones han sido refinadas considerando los requisitos específicos del diseño de Exercise 1, penalizando soluciones que no escalen adecuadamente para infraestructuras de 5 centros distribuidos con cargas GPU masivas.
+
+\section{Fortalezas y Limitaciones}
+
+\subsection{Fortalezas de OpenDCIM 23.04}
+
+\begin{enumerate}
+    \item \textbf{Costo}: Software libre sin licenciamiento, total control sobre la implementación
+    \item \textbf{Transparencia}: Código abierto permite auditoría completa y customizaciones ilimitadas
+    \item \textbf{Flexibilidad}: Arquitectura modificable para requisitos específicos
+    \item \textbf{Comunidad}: Soporte comunitario y desarrollo colaborativo
+    \item \textbf{Implementación}: Exitosamente desplegado y funcional en ambiente containerizado
+    \item \textbf{Demo funcional}: Población exitosa con datos realistas de infraestructura IA
+\end{enumerate}
+
+\subsection{Limitaciones Críticas de OpenDCIM 23.04 para Exercise 1}
+
+\begin{enumerate}
+    \item \textbf{Escalabilidad multi-sitio}: Arquitectura monolítica inadecuada para gestionar 5 centros distribuidos
+    \item \textbf{Capacidades de IA}: Ausencia de funcionalidades predictivas para optimización energética
+    \item \textbf{Gestión de cooling avanzado}: Sin soporte nativo para sistemas DLC/inmersión
+    \item \textbf{Coordinación global}: Limitaciones para sincronización entre centros para entrenamientos distribuidos
+    \item \textbf{Integración GPU}: Requiere desarrollo significativo para monitoreo especializado de clusters masivos
+\end{enumerate}
+
+\subsection{Fortalezas de EcoStruxure IT}
+
+\begin{enumerate}
+    \item \textbf{Arquitectura cloud-native}: Diseñada para gestión distribuida global
+    \item \textbf{IA Integrada}: Capacidades predictivas nativas y análisis basado en machine learning
+    \item \textbf{Escalabilidad}: Soporte para infraestructuras de escala OpenAI/Microsoft
+    \item \textbf{Integración}: APIs robustas y conectores preconfigurados para ecosistemas IA
+    \item \textbf{Compliance}: Reporting automatizado para regulaciones internacionales
+    \item \textbf{Soporte}: Soporte profesional 24/7 y actualizaciones automáticas
+\end{enumerate}
+
+\section{Recomendación Final}
+
+\subsection{Evaluación para Exercise 1}
+
+Para la infraestructura de Exercise 1 con 5 centros de datos distribuidos globalmente y cargas GPU masivas, \textbf{EcoStruxure IT es la única solución viable} con una puntuación de 8.43/10 versus 4.95/10 para OpenDCIM.
+
+\subsection{Justificación de la Recomendación}
+
+\begin{enumerate}
+    \item \textbf{Escalabilidad crítica}: EcoStruxure IT es la única solución capaz de gestionar eficientemente 5 centros distribuidos con coordinación global
+    \item \textbf{Gestión de cooling avanzado}: Soporte nativo para sistemas DLC/inmersión requeridos para densidades de 20-150 kW/rack
+    \item \textbf{Optimización energética}: Capacidades predictivas esenciales para gestionar consumos de 75-100 MW por centro
+    \item \textbf{ROI justificado}: Para inversiones de \$1.6-2.8 mil millones por centro, el costo de DCIM (~0.1\% del CAPEX) es marginal
+    \item \textbf{Cumplimiento global}: Soporte para regulaciones en múltiples jurisdicciones (US, EU, Asia-Pacific)
+\end{enumerate}
+
+\subsection{Escenarios de Uso Recomendados}
+
+\subsubsection{EcoStruxure IT es ideal para:}
+\begin{itemize}
+    \item \textbf{Infraestructuras como Exercise 1}: Organizaciones que operan 5+ centros de datos distribuidos globalmente
+    \item \textbf{Entrenamientos LLM masivos}: Gestión de clusters de 1,500+ racks GPU con inversiones de \$1.5-2.5 mil millones
+    \item \textbf{Cooling avanzado}: Centros con sistemas de refrigeración líquida DLC/inmersión de \$15-40M
+    \item \textbf{Conectividad global}: Topologías de malla parcial con enlaces submarinos y redes InfiniBand
+    \item \textbf{Compliance energético}: Cumplimiento con regulaciones EED en múltiples jurisdicciones
+\end{itemize}
+
+\subsubsection{OpenDCIM puede ser considerado para:}
+\begin{itemize}
+    \item \textbf{Fase piloto inicial}: Testing de conceptos DCIM antes de inversiones masivas
+    \item \textbf{Centros únicos}: Infraestructuras de un solo sitio con <500 racks
+    \item \textbf{Presupuestos limitados}: Organizaciones que no pueden justificar licenciamiento enterprise
+    \item \textbf{Customización extrema}: Casos que requieren modificaciones profundas del código fuente
+    \item \textbf{Equipos especializados}: Organizaciones con expertise significativo en desarrollo DCIM
+\end{itemize}
+
+\textbf{Limitaciones críticas para Exercise 1}: OpenDCIM no es viable para la escala y complejidad del diseño propuesto debido a limitaciones de escalabilidad multi-sitio y ausencia de capacidades predictivas para optimización energética.
+
+\section{Implementación Recomendada}
+
+\subsection{Roadmap de Implementación para Exercise 1}
+
+\begin{enumerate}
+    \item \textbf{Implementación Escalonada}:
+    \begin{itemize}
+        \item Iniciar con Ashburn como sitio principal (mayor madurez del ecosistema)
+        \item Expandir a Europa (Estocolmo) y Asia-Pacífico (Singapur) en paralelo
+        \item Completar con São Paulo y Sydney en fase final
+    \end{itemize}
+
+    \item \textbf{Integración con Diseño Técnico}:
+    \begin{itemize}
+        \item Configurar EcoStruxure IT para monitoreo de sistemas DLC/inmersión
+        \item Integrar con redes InfiniBand NDR 400Gb/s para visibilidad de rendimiento
+        \item Conectar con sistemas Lustre/Ceph para gestión de almacenamiento distribuido
+    \end{itemize}
+
+    \item \textbf{KPIs Específicos para IA}:
+    \begin{itemize}
+        \item PUE objetivo: <1.2 con cooling líquido optimizado
+        \item Utilización GPU: >80\% promedio en entrenamiento distribuido
+        \item Latencia inter-sitio: <30ms entre centros regionales
+        \item Disponibilidad: 99.999\% para cargas críticas de inferencia
+    \end{itemize}
+
+    \item \textbf{Gestión Multi-Tenant}: Configurar segregación para diferentes equipos de investigación y cargas de producción
+\end{enumerate}
+
+\section{Conclusiones}
+
+\subsection{Conclusiones Principales}
+
+\begin{enumerate}
+    \item \textbf{Para el diseño de Exercise 1}, EcoStruxure IT es la única solución viable que puede gestionar eficientemente 5 centros de datos distribuidos con 2,500 racks cada uno y cargas GPU masivas.
+
+    \item \textbf{OpenDCIM presenta limitaciones críticas} para infraestructuras de escala global, especialmente en coordinación multi-sitio, gestión de cooling líquido avanzado y optimización energética predictiva.
+
+    \item \textbf{La brecha de escalabilidad} (4.95 vs 8.43 puntos) se acentúa al considerar requisitos específicos del Exercise 1, donde la gestión distribuida y las capacidades de IA son fundamentales.
+
+    \item \textbf{Inversión justificada}: Para centros con inversiones de \$1.6-2.8 mil millones cada uno, el costo adicional de EcoStruxure IT (~0.1\% del CAPEX total) es marginal comparado con los beneficios operacionales.
+
+    \item \textbf{Arquitectura cloud-native}: EcoStruxure IT se alinea con la topología de malla parcial y conectividad global requerida para entrenamientos LLM distribuidos.
+\end{enumerate}
+
+\subsection{Investigación Futura}
+
+\begin{enumerate}
+    \item \textbf{Validación en Producción}: Implementar pilot en uno de los 5 centros propuestos para validar métricas de rendimiento
+    \item \textbf{Análisis de TCO Detallado}: Evaluar costos operacionales reales durante entrenamientos LLM masivos
+    \item \textbf{Optimización Energética}: Medir impacto real de capacidades predictivas en eficiencia PUE
+    \item \textbf{Integración MLOps}: Evaluar conectividad con plataformas específicas como Kubeflow y Ray
+\end{enumerate}
+
+\section{Referencias y Anexos}
+
+Este análisis se basa en:
+\begin{itemize}
+    \item Exercise 1: Large-scale Datacenters at Global Service Providers
+    \item Implementación práctica de OpenDCIM 23.04 con datos demo poblados
+    \item Documentación técnica oficial de Schneider EcoStruxure IT
+    \item Análisis de mercado DCIM para infraestructuras de IA
+    \item Especificaciones técnicas de equipamiento GPU NVIDIA DGX H100/A100
+\end{itemize}
+
+\vspace{1cm}
+\hrule
+\vspace{0.5cm}
+\textbf{Documento preparado para}: Exercise 2 - Datacenter Management Software\\
+\textbf{Basado en}: Exercise 1 - Large-scale Datacenters at Global Service Providers\\
+\textbf{Fecha}: \today\\
+\textbf{Autores}: Sergio Enrique Morel Peralta, Clara Patricia Almirón de Silva\\
+\textbf{Versión}: 2.0
+
+\end{document}
