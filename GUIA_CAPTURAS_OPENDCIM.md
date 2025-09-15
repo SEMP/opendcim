@@ -6,7 +6,22 @@ Esta guía proporciona instrucciones detalladas para generar capturas de pantall
 
 ## Preparación del Entorno
 
-### 1. Población de Datos Demo
+### 1. Navegación en OpenDCIM
+
+**URLs Principales Verificadas**:
+- **Dashboard**: http://localhost:8080/ (página principal)
+- **Búsqueda de Dispositivos**: http://localhost:8080/search.php
+- **Dispositivo Específico**: http://localhost:8080/devices.php?DeviceID=X (donde X = 1,2,3...)
+- **Gestión de Cabinets**: http://localhost:8080/cabinets.php?cabinetid=X
+- **Data Center**: http://localhost:8080/datacenter.php?dc=1
+- **Energía**: http://localhost:8080/power_panel.php
+- **Personal**: http://localhost:8080/people_depts.php
+- **Virtualización**: Accesible desde el menú principal
+- **Configuración**: http://localhost:8080/config.php
+
+**Nota Importante**: `devices.php` sin parámetros muestra un formulario de edición. Para ver dispositivos usa `search.php` o `devices.php?DeviceID=X`.
+
+### 2. Población de Datos Demo
 
 Antes de generar las capturas, ejecutar el script de población de datos:
 
@@ -53,14 +68,15 @@ Acceder a OpenDCIM: http://localhost:8080
 
 **Objetivo**: Mostrar capacidades de gestión de activos especializados
 
-**URL**: http://localhost:8080/devices.php
-**Filtros a aplicar**:
-- Dispositivos con tag "GPU-Compute"
-- Servidores de tipo "Server"
-- Arrays de almacenamiento
+**URL**: http://localhost:8080/search.php
+**Búsqueda a realizar**:
+- Buscar "Server" en Device Type
+- O usar filtro avanzado para dispositivos GPU
+- Alternativamente ir directo a un dispositivo: http://localhost:8080/devices.php?DeviceID=1
 
 **Elementos a destacar**:
-- Modelos de GPU (DGX A100, DGX H100)
+- Lista de servidores AI-TRAIN-SRV-01 a AI-TRAIN-SRV-08 (DGX A100)
+- Servidores AI-INFER-SRV-01 a AI-INFER-SRV-04 (DGX H100)
 - Consumo energético por dispositivo (6.5kW, 10.2kW)
 - Estados operacionales
 - Ubicación en gabinetes
@@ -100,7 +116,7 @@ Acceder a OpenDCIM: http://localhost:8080
 
 **Objetivo**: Demostrar nivel de detalle por activo
 
-**URL**: http://localhost:8080/devices.php?deviceid=1 (AI-TRAIN-01)
+**URL**: http://localhost:8080/devices.php?DeviceID=1 (AI-TRAIN-SRV-01)
 **Elementos a mostrar**:
 - Especificaciones técnicas completas
 - Información de garantía y mantenimiento
@@ -130,7 +146,7 @@ Acceder a OpenDCIM: http://localhost:8080
 
 **Objetivo**: Demostrar capacidades de gestión organizacional
 
-**URL**: http://localhost:8080/people.php
+**URL**: http://localhost:8080/people_depts.php
 **Elementos a mostrar**:
 - 4 departamentos creados (AI Research, ML Engineering, Data Science, DevOps)
 - Personal asignado con contactos
